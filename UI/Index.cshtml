@@ -1,0 +1,73 @@
+﻿@model IEnumerable<BusinessObjects.Customer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm("Index", "Customers", FormMethod.Get))
+{
+    <p>
+        Customer Name: @Html.TextBox("serachString")
+        Countries : @Html.DropDownList("Countries", "All");<br />
+        <input type="submit" value="Filter" />
+    </p> 
+    
+    
+}
+@using (Html.BeginForm("IndexDelete", "Customers", FormMethod.Post))
+{
+    <div>
+
+        @Html.ValidationSummary()
+
+    </div>
+    <table>
+        <tr>
+            <td colspan="5">
+                <input type="submit" value="Delete" /></td>
+
+        </tr>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" name="deleteInputs" value="@item.CustomerId" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CustomerId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.CustomerId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CustomerId })
+                </td>
+            </tr>
+        }
+
+    </table>}
